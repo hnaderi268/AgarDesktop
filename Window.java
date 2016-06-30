@@ -168,6 +168,12 @@ public class Window extends JFrame {
 				case 'd':
 					controller.getPlayerK().stopMoveR();
 					break;
+				case 'f':
+					controller.getPlayerK().divide();
+					break;
+				case 'm':
+					controller.getPlayerM().divide();
+					break;
 				}
 			}
 

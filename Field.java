@@ -55,7 +55,7 @@ public class Field {
 	}
 
 	public synchronized void hitTest() {
-		hitTest = new Timer(10, new ActionListener() {
+		hitTest = new Timer(70, new ActionListener() {
 			public synchronized void actionPerformed(ActionEvent e) {
 				ArrayList<Ball> temp = (ArrayList<Ball>) scoreballs.clone();
 				ArrayList<Ball> mtemp = (ArrayList<Ball>) mballs.clone();
@@ -100,7 +100,7 @@ public class Field {
 														Math.random() * controller.getMapHeight(),
 														10 + Math.random() * 15, "G");
 												scoreballs.add(god);
-												System.out.println("kir kiri");
+												System.out.println("HI world! this is GOD");
 											} catch (Exception e) {
 												e.printStackTrace();
 											}

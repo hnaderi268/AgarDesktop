@@ -146,6 +146,14 @@ public class PlayerK extends Player {
 		// sum += Math.PI * ball.getRadius() * ball.getRadius();
 		return sum;
 	}
+	
+	public void divide() {
+		for(Ball ball:controller.getWindow().getField().getKBalls()){
+			controller.getWindow().getField().getKBalls().add(new Ball(x + (int)(Math.random()*50), y+(int)(Math.random()*ball.getRadius()/2), (int)(ball.getRadius()/2), "k"));
+			controller.getWindow().getField().getKBalls().add(new Ball(x + (int)(Math.random()*50), y+(int)(Math.random()*ball.getRadius()/2), (int)(ball.getRadius()/2), "k"));
+			controller.getWindow().getField().getKBalls().remove(ball);
+		}
+	}
 
 	private Controller controller;
 	public static Timer ballPlacer;
@@ -153,4 +161,5 @@ public class PlayerK extends Player {
 	public static Timer moveU;
 	public static Timer moveL;
 	public static Timer moveR;
+	
 }

@@ -58,6 +58,14 @@ public class PlayerM extends Player {
 		move.start();
 	}
 
+	public void divide() {
+		for(Ball ball:controller.getWindow().getField().getMBalls()){
+			controller.getWindow().getField().getMBalls().add(new Ball(x + (int)(Math.random()*50), y+(int)(Math.random()*ball.getRadius()/2), (int)(ball.getRadius()/2), "k"));
+			controller.getWindow().getField().getMBalls().add(new Ball(x + (int)(Math.random()*50), y+(int)(Math.random()*ball.getRadius()/2), (int)(ball.getRadius()/2), "k"));
+			controller.getWindow().getField().getMBalls().remove(ball);
+		}
+	}
+	
 	public double getMaxSpeed(){
 		if(speedPower)
 		return maxSpeed*2;
