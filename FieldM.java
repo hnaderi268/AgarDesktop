@@ -90,7 +90,7 @@ public class FieldM extends JPanel {
 				for (Ball ball : field.getScoreBalls())
 					ball.draw(g2, field.getController().getPlayerM().getX(), field.getController().getPlayerM().getY());
 				for (Ball ball : field.getMBalls())
-					ball.draw(g2, field.getController().getPlayerM().getX(), field.getController().getPlayerM().getY());
+					ball.draw(g2, field.getController().getPlayerM().getX(), field.getController().getPlayerM().getY(),field.getController().getPlayerM().godPower);
 				for (Ball ball : field.getKBalls())
 					ball.draw(g2, field.getController().getPlayerM().getX(), field.getController().getPlayerM().getY());
 			}

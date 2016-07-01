@@ -1,7 +1,10 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
+
+import javax.swing.ImageIcon;
 
 public class Ball {
 	private double radius;
@@ -10,7 +13,9 @@ public class Ball {
 	private Color color;
 	private String name = "";
 	private static int mapWidth;
-
+	private Image icon=new ImageIcon("2.jpg").getImage();;
+	
+	
 	public Ball(double x, double y, double r) {
 		this.x = x;
 		this.y = y;
@@ -26,6 +31,15 @@ public class Ball {
 		color = giveColor();
 	}
 
+	public Ball(double x, double y, double r, String name,Image icon) {
+		this.x = x;
+		this.y = y;
+		radius = r;
+		this.icon=icon;
+		this.name = name;
+		color = giveColor();
+	}
+	
 	// public Ball(double x, double y, double r, double difx, double difr,
 	// String name) {
 	// this.x = x;
@@ -121,7 +135,7 @@ public class Ball {
 	public void draw(Graphics2D g, double x2, double y2, boolean godPower) {
 		if (godPower) {
 			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			g.setColor(color.brighter().brighter().brighter().brighter().brighter());
+			g.setColor(color.brighter());
 			g.fillOval((int) x - (int) ((radius + 6) / 2) - (int) x2 + 1440 / 4,
 					(int) y - (int) ((radius + 6) / 2) - (int) y2 + 825 / 2, (int) radius + 6, (int) radius + 6);
 			g.setColor(color.brighter().brighter().brighter().brighter().brighter());
@@ -131,6 +145,7 @@ public class Ball {
 			Font font = new Font("Helvetica", Font.PLAIN, 32);
 			g.setFont(font);
 			g.drawString(name, (int) x - (int) x2 + 1440 / 4 - 12, (int) y - (int) y2 + 825 / 2 + 11);
+			g.drawImage(icon, (int) x - (int) x2 + 1440 / 4 - 20, (int) y - (int) y2 + 825 / 2 - 20, null);
 		} else {
 			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			g.setColor(color.darker());
@@ -143,6 +158,7 @@ public class Ball {
 			Font font = new Font("Helvetica", Font.PLAIN, 32);
 			g.setFont(font);
 			g.drawString(name, (int) x - (int) x2 + 1440 / 4 - 12, (int) y - (int) y2 + 825 / 2 + 11);
+			g.drawImage(icon, (int) x - (int) x2 + 1440 / 4 - 20, (int) y - (int) y2 + 825 / 2 - 20, null);
 		}
 	}
 

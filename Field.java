@@ -50,8 +50,11 @@ public class Field {
 				10 + Math.random() * 15, "S");
 		god = new Ball(Math.random() * controller.getMapWidth(), Math.random() * controller.getMapHeight(),
 				10 + Math.random() * 15, "G");
+		gear = new Ball(Math.random() * controller.getMapWidth(), Math.random() * controller.getMapHeight(),
+				20 + Math.random() * 45, "Gear");
 		scoreballs.add(speed);
 		scoreballs.add(god);
+		scoreballs.add(gear);
 	}
 
 	public synchronized void hitTest() {
@@ -62,9 +65,12 @@ public class Field {
 				ArrayList<Ball> ktemp = (ArrayList<Ball>) kballs.clone();
 				for (Ball sball : temp)
 					if (mballs != null)
-						for (Ball mball : mballs)
+						for (Ball mball : mtemp)
 							if (sball.hit(mball)) {
-								if (sball == speed) {
+								if (sball == gear){
+									controller.getPlayerM().divide();
+								}
+								else if (sball == speed) {
 									new Thread(new Runnable() {
 										public void run() {
 											try {
@@ -170,6 +176,7 @@ public class Field {
 	Timer checkLose;
 	Timer inMap;
 	Timer hitTest;
+	public Ball gear;
 	public Ball speed;
 	public Ball god;
 	private int WLState = 0;

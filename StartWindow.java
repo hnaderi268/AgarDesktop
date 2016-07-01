@@ -25,6 +25,9 @@ class startWindow extends JFrame {
 	private JTextField textSpeed = new JTextField(20);
 	private JTextField textMapW = new JTextField(20);
 	private JTextField textMapH = new JTextField(20);
+	
+	private JButton picKButton = new JButton("Pic Keyboard");
+	private JButton picMButton = new JButton("Pic Mouse");
 	private JButton playButton = new JButton("Play!");
 	private App app;
 
@@ -71,6 +74,13 @@ class startWindow extends JFrame {
 		constraints.gridx = 1;
 		newPanel.add(textMapH, constraints);
 
+		constraints.gridx = 0;
+		constraints.gridy = 4;
+		newPanel.add(picKButton, constraints);
+
+		constraints.gridx = 1;
+		newPanel.add(picMButton, constraints);
+		
 		
 		constraints.gridx = 0;
 		constraints.gridy = 5;
@@ -102,6 +112,12 @@ class startWindow extends JFrame {
 					scoreballs=(int)((maph*mapw)/40000);
 
 				app.controller = new Controller(app,mapw,maph,speed,scoreballs);
+			}
+		});
+		
+		picMButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 

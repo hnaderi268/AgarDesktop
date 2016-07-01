@@ -8,12 +8,12 @@ public class PlayerM extends Player {
 
 	public PlayerM(Controller controller) {
 		this.controller = controller;
-		maxSpeed=controller.getMaxSpeed();
+		maxSpeed = controller.getMaxSpeed();
 		x = controller.getMapWidth() / 4;
 		y = controller.getMapHeight() / 2;
 		Ball b1 = new Ball(x, y, 50, "M");
-		Ball b2 = new Ball(x+10, y, 50, "m");
-		Ball b3 = new Ball(x-10, y+10, 50, "m");
+		Ball b2 = new Ball(x + 10, y, 50, "m");
+		Ball b3 = new Ball(x - 10, y + 10, 50, "m");
 		controller.getWindow().getField().getMBalls().add(b1);
 		controller.getWindow().getField().getMBalls().add(b2);
 		controller.getWindow().getField().getMBalls().add(b3);
@@ -27,19 +27,23 @@ public class PlayerM extends Player {
 						|| (y > controller.getMapHeight() && desy > 410) || (y < 0 && desy < 410)) {
 					;
 				} else {
-					
+
 					for (Ball ball1 : controller.getWindow().getField().getMBalls()) {
 						for (Ball ball2 : controller.getWindow().getField().getMBalls()) {
-							if (ball1.hit(ball2) && ball1!=ball2) {
-								ball1.setX(ball1.getX() + (int)((ball1.getRadius() + ball2.getRadius() - (ball2.getX() - ball1.getX())) * .01));
-								ball1.setY(ball1.getY() + (int)((ball1.getRadius() + ball2.getRadius() - (ball2.getY() - ball1.getY())) * .01));
+							if (ball1.hit(ball2) && ball1 != ball2) {
+								ball1.setX(ball1.getX()
+										+ (int) ((ball1.getRadius() + ball2.getRadius() - (ball2.getX() - ball1.getX()))
+												* .01));
+								ball1.setY(ball1.getY()
+										+ (int) ((ball1.getRadius() + ball2.getRadius() - (ball2.getY() - ball1.getY()))
+												* .01));
 							}
 						}
-						Ball b1=controller.getWindow().getField().getMBalls().get(0);
+						Ball b1 = controller.getWindow().getField().getMBalls().get(0);
 						b1.setX(x);
 						b1.setY(y);
 					}
-				
+
 					double difx = x;
 					x += (getMaxSpeed() / getSumSurface()) * (desx - 1440 / 4) / (Math
 							.sqrt((desx - 1440 / 4) * (desx - 1440 / 4) + (desy - 1440 / 4) * (desy - 1440 / 4)));
@@ -59,20 +63,25 @@ public class PlayerM extends Player {
 	}
 
 	public void divide() {
-		for(Ball ball:controller.getWindow().getField().getMBalls()){
-			controller.getWindow().getField().getMBalls().add(new Ball(x + (int)(Math.random()*50), y+(int)(Math.random()*ball.getRadius()/2), (int)(ball.getRadius()/2), "k"));
-			controller.getWindow().getField().getMBalls().add(new Ball(x + (int)(Math.random()*50), y+(int)(Math.random()*ball.getRadius()/2), (int)(ball.getRadius()/2), "k"));
-			controller.getWindow().getField().getMBalls().remove(ball);
+		ArrayList<Ball> mtemp = (ArrayList<Ball>) controller.getWindow().getField().getMBalls().clone();
+		for (Ball ball : mtemp) {
+			if (mtemp.size() < 4) {
+				controller.getWindow().getField().getMBalls().add(new Ball(x + (int) (Math.random() * 50),
+						y + (int) (Math.random() * ball.getRadius() / 2), (int) (ball.getRadius() / 2), "k"));
+				controller.getWindow().getField().getMBalls().add(new Ball(x + (int) (Math.random() * 50),
+						y + (int) (Math.random() * ball.getRadius() / 2), (int) (ball.getRadius() / 2), "k"));
+				controller.getWindow().getField().getMBalls().remove(ball);
+			}
 		}
 	}
-	
-	public double getMaxSpeed(){
-		if(speedPower)
-		return maxSpeed*2;
+
+	public double getMaxSpeed() {
+		if (speedPower)
+			return maxSpeed * 2;
 		else
 			return maxSpeed;
 	}
-	
+
 	public double getSumSurface() {
 		double sum = 0;
 		for (Ball ball : controller.getWindow().getField().getMBalls())
@@ -84,7 +93,6 @@ public class PlayerM extends Player {
 		return sum;
 	}
 
-	
 	private double maxSpeed;
 	public int realdesx, realdesy;
 	public int desx, desy;
