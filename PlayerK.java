@@ -9,9 +9,9 @@ public class PlayerK extends Player {
 		this.controller = controller;
 		x = 3 * controller.getMapWidth() / 4;
 		y = controller.getMapHeight() / 2;
-		Ball b = new Ball(x, y, 50, "K");
+		Ball b = new Ball(x, y, 50, "K",controller.iconK);
 		controller.getWindow().getField().getKBalls().add(b);
-		Ball b2 = new Ball(x + 10, y, 50, "k");
+		Ball b2 = new Ball(x + 10, y, 50, "k",controller.iconK);
 		controller.getWindow().getField().getKBalls().add(b2);
 		ballPlacer();
 	}
@@ -149,8 +149,11 @@ public class PlayerK extends Player {
 	
 	public void divide() {
 		for(Ball ball:controller.getWindow().getField().getKBalls()){
-			controller.getWindow().getField().getKBalls().add(new Ball(x + (int)(Math.random()*50), y+(int)(Math.random()*ball.getRadius()/2), (int)(ball.getRadius()/2), "k"));
-			controller.getWindow().getField().getKBalls().add(new Ball(x + (int)(Math.random()*50), y+(int)(Math.random()*ball.getRadius()/2), (int)(ball.getRadius()/2), "k"));
+			int rad=(int) (ball.getRadius() / 2);
+			if(rad<50)
+				rad=50;
+			controller.getWindow().getField().getKBalls().add(new Ball(x + (int)(Math.random()*50), y+(int)(Math.random()*ball.getRadius()/2), rad, "k",controller.iconK));
+			controller.getWindow().getField().getKBalls().add(new Ball(x + (int)(Math.random()*50), y+(int)(Math.random()*ball.getRadius()/2), rad, "k",controller.iconK));
 			controller.getWindow().getField().getKBalls().remove(ball);
 		}
 	}

@@ -1,3 +1,4 @@
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -8,12 +9,14 @@ import java.awt.event.ActionEvent;
 
 public class Controller {
 
-	public Controller(App app,int mapWidth,int mapHeight,int speed,int scoreBallsCount) {
+	public Controller(App app,int mapWidth,int mapHeight,int speed,int scoreBallsCount,Image iconK,Image iconM) {
 		this.app = app;
 		this.mapHeight=mapHeight;
 		this.mapWidth=mapWidth;
 		this.maxSpeed=speed;
 		this.scoreBallsCount=scoreBallsCount;
+		this.iconM=iconM;
+		this.iconK=iconK;
 		app.startPanel.setVisible(false);
 		reBuild();
 	}
@@ -22,6 +25,8 @@ public class Controller {
 		window = new Window(this);
 		playerk = new PlayerK(this);
 		playerm = new PlayerM(this);
+		playerk.icon=iconK;
+		playerm.icon=iconM;
 		window.getFieldM().addMouseMotionListener(window.getFieldM().mouse_move);
 		show();
 		window.jmap.setVisible(true);
@@ -85,6 +90,7 @@ public class Controller {
 		return scoreBallsCount;
 	}
 
+	public Image iconK,iconM;
 	public long time=0;
 	private Window window;
 	private PlayerK playerk;

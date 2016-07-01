@@ -87,12 +87,13 @@ public class FieldM extends JPanel {
 			g2.drawString("" + (int) (Math.pow(field.getController().getPlayerM().getSumSurface(), 2) * Math.PI), 10,
 					20);
 			if (field.getController().getPlayerM() != null) {
-				for (Ball ball : field.getScoreBalls())
+				ArrayList<Ball> temp = (ArrayList<Ball>) field.getScoreBalls().clone();
+				for (Ball ball : temp)
 					ball.draw(g2, field.getController().getPlayerM().getX(), field.getController().getPlayerM().getY());
 				for (Ball ball : field.getMBalls())
 					ball.draw(g2, field.getController().getPlayerM().getX(), field.getController().getPlayerM().getY(),field.getController().getPlayerM().godPower);
 				for (Ball ball : field.getKBalls())
-					ball.draw(g2, field.getController().getPlayerM().getX(), field.getController().getPlayerM().getY());
+					ball.draw(g2, field.getController().getPlayerM().getX(), field.getController().getPlayerM().getY(),field.getController().getPlayerK().godPower);
 			}
 		}
 	}

@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import java.awt.Image;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -25,12 +27,15 @@ class startWindow extends JFrame {
 	private JTextField textSpeed = new JTextField(20);
 	private JTextField textMapW = new JTextField(20);
 	private JTextField textMapH = new JTextField(20);
-	
+
 	private JButton picKButton = new JButton("Pic Keyboard");
 	private JButton picMButton = new JButton("Pic Mouse");
 	private JButton playButton = new JButton("Play!");
 	private App app;
 
+	private Image iconK;
+	private Image iconM;
+	
 	public startWindow(App app) {
 		this.app = app;
 
@@ -80,8 +85,7 @@ class startWindow extends JFrame {
 
 		constraints.gridx = 1;
 		newPanel.add(picMButton, constraints);
-		
-		
+
 		constraints.gridx = 0;
 		constraints.gridy = 5;
 		constraints.gridwidth = 2;
@@ -92,32 +96,54 @@ class startWindow extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(textMapW.getText().equals(""))
+				if (textMapW.getText().equals(""))
 					textMapW.setText("1000");
-				if(textMapH.getText().equals(""))
+				if (textMapH.getText().equals(""))
 					textMapH.setText("500");
-				if(textScoreballs.getText().equals(""))
+				if (textScoreballs.getText().equals(""))
 					textScoreballs.setText("0");
-				if(textSpeed.getText().equals(""))
+				if (textSpeed.getText().equals(""))
 					textSpeed.setText("400");
-				int scoreballs=Integer.parseInt(textScoreballs.getText());
-				int mapw=Integer.parseInt(textMapW.getText());
-				int maph=Integer.parseInt(textMapH.getText());
-				int speed=Integer.parseInt(textSpeed.getText());
-				if(mapw<1000 || mapw>4000)
-					mapw=2000;
-				if(maph<500||maph>2000)
-					maph=1000;
-				if(scoreballs==0)
-					scoreballs=(int)((maph*mapw)/40000);
+				int scoreballs = Integer.parseInt(textScoreballs.getText());
+				int mapw = Integer.parseInt(textMapW.getText());
+				int maph = Integer.parseInt(textMapH.getText());
+				int speed = Integer.parseInt(textSpeed.getText());
+				if (mapw < 1000 || mapw > 4000)
+					mapw = 2000;
+				if (maph < 500 || maph > 2000)
+					maph = 1000;
+				if (scoreballs == 0)
+					scoreballs = (int) ((maph * mapw) / 40000);
 
-				app.controller = new Controller(app,mapw,maph,speed,scoreballs);
+				app.controller = new Controller(app, mapw, maph, speed, scoreballs,iconK,iconM);
 			}
 		});
-		
+
 		picMButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File("/Users/ho3in/Desktop/Avatar"));
+				int returnValue = fileChooser.showOpenDialog(null);
+				if (returnValue == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();
+					System.out.println(selectedFile.getAbsolutePath());
+					iconM=new ImageIcon(selectedFile.getAbsolutePath()).getImage();
+				}
+			}
+		});
+		
+		picKButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File("/Users/ho3in/Desktop/Avatar"));
+				int returnValue = fileChooser.showOpenDialog(null);
+				if (returnValue == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();
+					System.out.println(selectedFile.getName());
+					iconK=new ImageIcon(selectedFile.getAbsolutePath()).getImage();
+				}
 			}
 		});
 

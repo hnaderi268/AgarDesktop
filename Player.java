@@ -1,3 +1,4 @@
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public abstract class Player {
 	protected Ball pball;
 	public boolean speedPower=false;
 	public boolean godPower=false;
+	public Image icon;
 	
 	public double getX() {
 		return x;

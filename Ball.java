@@ -13,7 +13,7 @@ public class Ball {
 	private Color color;
 	private String name = "";
 	private static int mapWidth;
-	private Image icon=new ImageIcon("2.jpg").getImage();;
+	private Image icon=new ImageIcon("/Users/ho3in/Desktop/Avatar/1.jpg").getImage();;
 	
 	
 	public Ball(double x, double y, double r) {
@@ -39,17 +39,6 @@ public class Ball {
 		this.name = name;
 		color = giveColor();
 	}
-	
-	// public Ball(double x, double y, double r, double difx, double difr,
-	// String name) {
-	// this.x = x;
-	// this.y = y;
-	// radius = r;
-	// this.difx = difx;
-	// this.dify = dify;
-	// this.name = name;
-	// color = giveColor();
-	// }
 
 	public double getRadius() {
 		return radius;
