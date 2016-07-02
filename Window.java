@@ -180,6 +180,7 @@ public class Window extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyChar()) {
 				case 'w':
+					System.out.println("W");
 					controller.getPlayerK().moveU();
 					break;
 				case 's':

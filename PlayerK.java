@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
 
@@ -9,11 +10,37 @@ public class PlayerK extends Player {
 		this.controller = controller;
 		x = 3 * controller.getMapWidth() / 4;
 		y = controller.getMapHeight() / 2;
-		Ball b = new Ball(x, y, 50, "K",controller.iconK);
+		Ball b = new Ball(x, y, 50, "K", controller.iconK);
 		controller.getWindow().getField().getKBalls().add(b);
-		Ball b2 = new Ball(x + 10, y, 50, "k",controller.iconK);
+		Ball b2 = new Ball(x + 10, y, 50, "k", controller.iconK);
 		controller.getWindow().getField().getKBalls().add(b2);
 		ballPlacer();
+		ballMerger();
+	}
+
+	private void ballMerger() {
+		Timer ballMerger = new Timer(2000, new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				int cnt = 0;
+				ArrayList<Ball> ktemp = (ArrayList<Ball>) controller.getWindow().getField().getKBalls().clone();
+				for (Ball ball1 : ktemp) {
+					if (cnt != 0 && ball1.getRadius() > 50) {
+						ball1.setRadius(ball1.getRadius() - 1);
+						controller.getWindow().getField().getKBalls().get(0)
+								.setRadius(controller.getWindow().getField().getKBalls().get(0).getRadius() + 1);
+					} else if (cnt != 0 && ball1.getRadius() < 50) {
+						controller.getWindow().getField().getKBalls().get(0).setRadius(
+								controller.getWindow().getField().getKBalls().get(0).getRadius() + ball1.getRadius());
+						controller.getWindow().getField().getKBalls().remove(ball1);
+					}
+					cnt++;
+				}
+
+			}
+		});
+		ballMerger.start();
+
 	}
 
 	public void ballPlacer() {
@@ -146,14 +173,16 @@ public class PlayerK extends Player {
 		// sum += Math.PI * ball.getRadius() * ball.getRadius();
 		return sum;
 	}
-	
+
 	public void divide() {
-		for(Ball ball:controller.getWindow().getField().getKBalls()){
-			int rad=(int) (ball.getRadius() / 2);
-			if(rad<50)
-				rad=50;
-			controller.getWindow().getField().getKBalls().add(new Ball(x + (int)(Math.random()*50), y+(int)(Math.random()*ball.getRadius()/2), rad, "k",controller.iconK));
-			controller.getWindow().getField().getKBalls().add(new Ball(x + (int)(Math.random()*50), y+(int)(Math.random()*ball.getRadius()/2), rad, "k",controller.iconK));
+		for (Ball ball : controller.getWindow().getField().getKBalls()) {
+			int rad = (int) (ball.getRadius() / 2);
+			if (rad < 50)
+				rad = 50;
+			controller.getWindow().getField().getKBalls().add(new Ball(x + (int) (Math.random() * 50),
+					y + (int) (Math.random() * ball.getRadius() / 2), rad, "k", controller.iconK));
+			controller.getWindow().getField().getKBalls().add(new Ball(x + (int) (Math.random() * 50),
+					y + (int) (Math.random() * ball.getRadius() / 2), rad, "k", controller.iconK));
 			controller.getWindow().getField().getKBalls().remove(ball);
 		}
 	}
@@ -164,5 +193,5 @@ public class PlayerK extends Player {
 	public static Timer moveU;
 	public static Timer moveL;
 	public static Timer moveR;
-	
+
 }

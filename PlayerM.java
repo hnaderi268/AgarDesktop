@@ -18,6 +18,32 @@ public class PlayerM extends Player {
 		controller.getWindow().getField().getMBalls().add(b2);
 		controller.getWindow().getField().getMBalls().add(b3);
 		move();
+		ballMerger();
+	}
+	
+	private void ballMerger() {
+		Timer ballMerger = new Timer(2000, new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				int cnt = 0;
+				ArrayList<Ball> mtemp = (ArrayList<Ball>) controller.getWindow().getField().getMBalls().clone();
+				for (Ball ball1 : mtemp) {
+					if (cnt != 0 && ball1.getRadius() > 50) {
+						ball1.setRadius(ball1.getRadius() - 1);
+						controller.getWindow().getField().getMBalls().get(0)
+								.setRadius(controller.getWindow().getField().getMBalls().get(0).getRadius() + 1);
+					} else if (cnt != 0 && ball1.getRadius() < 50) {
+						controller.getWindow().getField().getMBalls().get(0).setRadius(
+								controller.getWindow().getField().getMBalls().get(0).getRadius() + ball1.getRadius());
+						controller.getWindow().getField().getMBalls().remove(ball1);
+					}
+					cnt++;
+				}
+
+			}
+		});
+		ballMerger.start();
+
 	}
 
 	public void move() {
