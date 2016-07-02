@@ -8,6 +8,7 @@ public class PlayerK extends Player {
 
 	public PlayerK(Controller controller) {
 		this.controller = controller;
+		maxSpeed = controller.getMaxSpeed();
 		x = 3 * controller.getMapWidth() / 4;
 		y = controller.getMapHeight() / 2;
 		Ball b = new Ball(x, y, 50, "K", controller.iconK);
@@ -96,9 +97,9 @@ public class PlayerK extends Player {
 				} else {
 					double dify = y;
 					if (moveL != null && moveR != null && (moveL.isRunning() || moveR.isRunning()))
-						y += controller.getMaxSpeed() / getSumSurface() * 0.707;
+						y += getMaxSpeed() / getSumSurface() * 0.707;
 					else
-						y += controller.getMaxSpeed() / getSumSurface();
+						y += getMaxSpeed() / getSumSurface();
 					for (Ball ball : controller.getWindow().getField().getKBalls())
 						ball.setY(ball.getY() + (y - dify));
 				}
@@ -115,9 +116,9 @@ public class PlayerK extends Player {
 				} else {
 					double dify = y;
 					if (moveL != null && moveR != null && (moveL.isRunning() || moveR.isRunning()))
-						y -= controller.getMaxSpeed() / getSumSurface() * 0.707;
+						y -= getMaxSpeed() / getSumSurface() * 0.707;
 					else
-						y -= controller.getMaxSpeed() / getSumSurface();
+						y -= getMaxSpeed() / getSumSurface();
 					for (Ball ball : controller.getWindow().getField().getKBalls())
 						ball.setY(ball.getY() + (y - dify));
 				}
@@ -134,9 +135,9 @@ public class PlayerK extends Player {
 				} else {
 					double difx = x;
 					if (moveU != null && moveD != null && (moveU.isRunning() || moveD.isRunning()))
-						x -= controller.getMaxSpeed() / getSumSurface() * 0.707;
+						x -= getMaxSpeed() / getSumSurface() * 0.707;
 					else
-						x -= controller.getMaxSpeed() / getSumSurface();
+						x -= getMaxSpeed() / getSumSurface();
 					for (Ball ball : controller.getWindow().getField().getKBalls())
 						ball.setX(ball.getX() + (x - difx));
 				}
@@ -153,9 +154,9 @@ public class PlayerK extends Player {
 				} else {
 					double difx = x;
 					if (moveU != null && moveD != null && (moveU.isRunning() || moveD.isRunning()))
-						x += controller.getMaxSpeed() / getSumSurface() * 0.707;
+						x += getMaxSpeed() / getSumSurface() * 0.707;
 					else
-						x += controller.getMaxSpeed() / getSumSurface();
+						x += getMaxSpeed() / getSumSurface();
 					for (Ball ball : controller.getWindow().getField().getKBalls())
 						ball.setX(ball.getX() + (x - difx));
 				}
@@ -173,20 +174,32 @@ public class PlayerK extends Player {
 		// sum += Math.PI * ball.getRadius() * ball.getRadius();
 		return sum;
 	}
-
-	public void divide() {
-		for (Ball ball : controller.getWindow().getField().getKBalls()) {
-			int rad = (int) (ball.getRadius() / 2);
-			if (rad < 50)
-				rad = 50;
-			controller.getWindow().getField().getKBalls().add(new Ball(x + (int) (Math.random() * 50),
-					y + (int) (Math.random() * ball.getRadius() / 2), rad, "k", controller.iconK));
-			controller.getWindow().getField().getKBalls().add(new Ball(x + (int) (Math.random() * 50),
-					y + (int) (Math.random() * ball.getRadius() / 2), rad, "k", controller.iconK));
-			controller.getWindow().getField().getKBalls().remove(ball);
-		}
+	
+	public double getMaxSpeed() {
+		if (speedPower)
+			return maxSpeed * 2;
+		else
+			return maxSpeed;
 	}
 
+	public void divide() {
+		ArrayList<Ball> ktemp = (ArrayList<Ball>) controller.getWindow().getField().getKBalls().clone();
+		for (Ball ball : ktemp) {
+			if (ktemp.size() < 4) {
+				int rad = (int) (ball.getRadius() / 2);
+				if (rad < 50)
+					rad = 50;
+				controller.getWindow().getField().getKBalls().add(new Ball(x + (int) (Math.random() * 50),
+						y + (int) (Math.random() * ball.getRadius() / 2), rad, "k", controller.iconK));
+				controller.getWindow().getField().getKBalls().add(new Ball(x + (int) (Math.random() * 50),
+						y + (int) (Math.random() * ball.getRadius() / 2), rad, "k", controller.iconK));
+				controller.getWindow().getField().getKBalls().remove(ball);
+			}
+		}
+	}
+	
+	
+	private double maxSpeed;
 	private Controller controller;
 	public static Timer ballPlacer;
 	public static Timer moveD;

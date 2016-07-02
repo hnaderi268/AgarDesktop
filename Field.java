@@ -67,10 +67,9 @@ public class Field {
 					if (mballs != null)
 						for (Ball mball : mtemp)
 							if (sball.hit(mball)) {
-								if (sball == gear){
+								if (sball == gear) {
 									controller.getPlayerM().divide();
-								}
-								else if (sball == speed) {
+								} else if (sball == speed) {
 									new Thread(new Runnable() {
 										public void run() {
 											try {
@@ -123,9 +122,53 @@ public class Field {
 							}
 				for (Ball sball : temp)
 					if (kballs != null)
-						for (Ball kball : kballs)
+						for (Ball kball : ktemp)
 							if (sball.hit(kball))
-								if (sball.getRadius() < kball.getRadius()) {
+								if (sball == gear) {
+									controller.getPlayerK().divide();
+								} else if (sball == speed) {
+									new Thread(new Runnable() {
+										public void run() {
+											try {
+												scoreballs.remove(sball);
+												controller.getPlayerK().speedPower = true;
+												long past = controller.time;
+												while (controller.time - past < 100) {
+													System.err.println(controller.time + " " + past);
+												}
+												controller.getPlayerK().speedPower = false;
+												speed = new Ball(Math.random() * controller.getMapWidth(),
+														Math.random() * controller.getMapHeight(),
+														10 + Math.random() * 15, "S");
+												scoreballs.add(speed);
+											} catch (Exception e) {
+												e.printStackTrace();
+											}
+										}
+									}).start();
+								} else if (sball == god) {
+									System.out.println("god");
+									new Thread(new Runnable() {
+										public void run() {
+											try {
+												scoreballs.remove(sball);
+												controller.getPlayerK().godPower = true;
+												long past = controller.time;
+												while (controller.time - past < 100) {
+													System.err.println(controller.time + " " + past);
+												}
+												controller.getPlayerK().godPower = false;
+												god = new Ball(Math.random() * controller.getMapWidth(),
+														Math.random() * controller.getMapHeight(),
+														10 + Math.random() * 15, "G");
+												scoreballs.add(god);
+												System.out.println("HI world! this is GOD");
+											} catch (Exception e) {
+												e.printStackTrace();
+											}
+										}
+									}).start();
+								} else if (sball.getRadius() < kball.getRadius()) {
 									kball.setRadius(Math.sqrt((Math.PI * kball.getRadius() * kball.getRadius()
 											+ Math.PI * sball.getRadius() * sball.getRadius()) / Math.PI));
 									scoreballs.remove(sball);
