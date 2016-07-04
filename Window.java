@@ -143,7 +143,7 @@ public class Window extends JFrame {
 		jmap.setLocation(520, 840-(int) ((400.0 / (double) controller.getMapWidth()) * controller.getMapHeight()));
 		jmap.setLayout(new GridLayout(0, 1));
 		jmap.setFocusable(false);
-		jmap.setAlwaysOnTop (true);
+		jmap.setAlwaysOnTop(true);
 		jmap.add(map);
 
 		// key listeners

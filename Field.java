@@ -47,14 +47,17 @@ public class Field {
 			scoreballs.add(B);
 		}
 		speed = new Ball(Math.random() * controller.getMapWidth(), Math.random() * controller.getMapHeight(),
-				10 + Math.random() * 15, "S");
+				10 + Math.random() * 15, "Speed");
 		god = new Ball(Math.random() * controller.getMapWidth(), Math.random() * controller.getMapHeight(),
-				10 + Math.random() * 15, "G");
+				10 + Math.random() * 15, "God");
 		gear = new Ball(Math.random() * controller.getMapWidth(), Math.random() * controller.getMapHeight(),
 				20 + Math.random() * 45, "Gear");
+		invader = new Ball(Math.random() * controller.getMapWidth(), Math.random() * controller.getMapHeight(),
+				10+ Math.random() * 15, "Invader");
 		scoreballs.add(speed);
 		scoreballs.add(god);
 		scoreballs.add(gear);
+		scoreballs.add(invader);
 	}
 
 	public synchronized void hitTest() {
@@ -109,6 +112,16 @@ public class Field {
 											} catch (Exception e) {
 												e.printStackTrace();
 											}
+										}
+									}).start();
+								} else if (sball == invader) {
+									for (Ball invball : mballs)
+										invball.setRadius(invball.getRadius() * .99);
+									new Thread(new Runnable() {
+										public void run() {
+											long past = controller.time;
+											while (controller.time - past < 500)
+												System.err.println(controller.time + " " + past);
 										}
 									}).start();
 								} else if (sball.getRadius() < mball.getRadius()) {
@@ -168,6 +181,16 @@ public class Field {
 											}
 										}
 									}).start();
+								} else if (sball == invader) {
+									for (Ball invball : kballs)
+										invball.setRadius(invball.getRadius() * .99);
+									new Thread(new Runnable() {
+										public void run() {
+											long past = controller.time;
+											while (controller.time - past < 500)
+												System.err.println(controller.time + " " + past);
+										}
+									}).start();
 								} else if (sball.getRadius() < kball.getRadius()) {
 									kball.setRadius(Math.sqrt((Math.PI * kball.getRadius() * kball.getRadius()
 											+ Math.PI * sball.getRadius() * sball.getRadius()) / Math.PI));
@@ -219,9 +242,7 @@ public class Field {
 	Timer checkLose;
 	Timer inMap;
 	Timer hitTest;
-	public Ball gear;
-	public Ball speed;
-	public Ball god;
+	public Ball gear, speed, god, invader;
 	private int WLState = 0;
 	private ArrayList<Ball> kballs;
 	private ArrayList<Ball> mballs;

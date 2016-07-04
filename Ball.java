@@ -13,7 +13,7 @@ public class Ball {
 	private Color color;
 	private String name = "";
 	private static int mapWidth;
-	private Image icon=new ImageIcon("/Users/ho3in/Desktop/Avatar/1.jpg").getImage();;
+	private Image icon=new ImageIcon("/Users/ho3in/Desktop/Avatar/1.jpg").getImage();
 	
 	
 	public Ball(double x, double y, double r) {

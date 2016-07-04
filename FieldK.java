@@ -56,7 +56,7 @@ public class FieldK extends JPanel {
 							+ 10,
 					field.getController().getMapWidth() - 20, field.getController().getMapHeight() - 20);
 			g2.setColor(Color.BLACK);
-			Font font = new Font("Helvetica", Font.PLAIN, 22);
+			Font font = new Font("Helvetica", Font.PLAIN, 14);
 			g2.setFont(font);
 			g2.drawString(""+(int)(Math.pow(field.getController().getPlayerK().getSumSurface(),2)*Math.PI),10,20);
 			if (field.getController().getPlayerM() != null) {
