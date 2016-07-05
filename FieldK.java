@@ -58,14 +58,18 @@ public class FieldK extends JPanel {
 			g2.setColor(Color.BLACK);
 			Font font = new Font("Helvetica", Font.PLAIN, 14);
 			g2.setFont(font);
-			g2.drawString(""+(int)(Math.pow(field.getController().getPlayerK().getSumSurface(),2)*Math.PI),10,20);
+			g2.drawString("" + field.getController().kname, 10, 20);
+			g2.drawString("" + (int) (Math.pow(field.getController().getPlayerK().getSumSurface(), 2) * Math.PI),
+					field.getController().kname.length() * 9 + 10, 20);
 			if (field.getController().getPlayerM() != null) {
 				for (Ball ball : field.getScoreBalls())
 					ball.draw(g2, field.getController().getPlayerK().getX(), field.getController().getPlayerK().getY());
 				for (Ball ball : field.getMBalls())
-					ball.draw(g2, field.getController().getPlayerK().getX(), field.getController().getPlayerK().getY(),field.getController().getPlayerM().godPower);
+					ball.draw(g2, field.getController().getPlayerK().getX(), field.getController().getPlayerK().getY(),
+							field.getController().getPlayerM().godPower);
 				for (Ball ball : field.getKBalls())
-					ball.draw(g2, field.getController().getPlayerK().getX(), field.getController().getPlayerK().getY(),field.getController().getPlayerK().godPower);
+					ball.draw(g2, field.getController().getPlayerK().getX(), field.getController().getPlayerK().getY(),
+							field.getController().getPlayerK().godPower);
 			}
 		}
 	}

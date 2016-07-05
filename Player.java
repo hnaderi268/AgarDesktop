@@ -13,6 +13,7 @@ public abstract class Player {
 	public boolean speedPower=false;
 	public boolean godPower=false;
 	public Image icon;
+	public String name;
 	
 	public double getX() {
 		return x;

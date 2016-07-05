@@ -84,16 +84,19 @@ public class FieldM extends JPanel {
 			g2.setColor(Color.BLACK);
 			Font font = new Font("Helvetica", Font.PLAIN, 14);
 			g2.setFont(font);
-			g2.drawString("" + (int) (Math.pow(field.getController().getPlayerM().getSumSurface(), 2) * Math.PI), 10,
-					20);
+			g2.drawString("" + field.getController().pname, 10, 20);
+			g2.drawString("" + (int) (Math.pow(field.getController().getPlayerM().getSumSurface(), 2) * Math.PI),
+					field.getController().pname.length() * 9 + 10, 20);
 			if (field.getController().getPlayerM() != null) {
 				ArrayList<Ball> temp = (ArrayList<Ball>) field.getScoreBalls().clone();
 				for (Ball ball : temp)
 					ball.draw(g2, field.getController().getPlayerM().getX(), field.getController().getPlayerM().getY());
 				for (Ball ball : field.getMBalls())
-					ball.draw(g2, field.getController().getPlayerM().getX(), field.getController().getPlayerM().getY(),field.getController().getPlayerM().godPower);
+					ball.draw(g2, field.getController().getPlayerM().getX(), field.getController().getPlayerM().getY(),
+							field.getController().getPlayerM().godPower);
 				for (Ball ball : field.getKBalls())
-					ball.draw(g2, field.getController().getPlayerM().getX(), field.getController().getPlayerM().getY(),field.getController().getPlayerK().godPower);
+					ball.draw(g2, field.getController().getPlayerM().getX(), field.getController().getPlayerM().getY(),
+							field.getController().getPlayerK().godPower);
 			}
 		}
 	}

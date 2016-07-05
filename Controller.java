@@ -9,30 +9,33 @@ import java.awt.event.ActionEvent;
 
 public class Controller {
 
-	public Controller(App app,int mapWidth,int mapHeight,int speed,int scoreBallsCount,Image iconK,Image iconM) {
+	public Controller(App app, int mapWidth, int mapHeight, String pname, String kname, int speed, int scoreBallsCount,
+			Image iconK, Image iconM) {
 		this.app = app;
-		this.mapHeight=mapHeight;
-		this.mapWidth=mapWidth;
-		this.maxSpeed=speed;
-		this.scoreBallsCount=scoreBallsCount;
-		this.iconM=iconM;
-		this.iconK=iconK;
+		this.mapHeight = mapHeight;
+		this.mapWidth = mapWidth;
+		this.maxSpeed = speed;
+		this.scoreBallsCount = scoreBallsCount;
+		this.kname = kname;
+		this.pname = pname;
+		this.iconM = iconM;
+		this.iconK = iconK;
 		app.startPanel.setVisible(false);
 		reBuild();
 	}
 
-	public void reBuild(){
+	public void reBuild() {
 		window = new Window(this);
 		playerk = new PlayerK(this);
 		playerm = new PlayerM(this);
-		playerk.icon=iconK;
-		playerm.icon=iconM;
+		playerk.icon = iconK;
+		playerm.icon = iconM;
 		window.getFieldM().addMouseMotionListener(window.getFieldM().mouse_move);
 		show();
 		window.jmap.setVisible(true);
 		window.getField().checkLose();
 	}
-	
+
 	private void show() {
 		show = new Timer(10, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -40,7 +43,7 @@ public class Controller {
 				window.getFieldK().repaint();
 				window.jmap.repaint();
 				time++;
-				time%=Integer.MAX_VALUE-10;
+				time %= Integer.MAX_VALUE - 10;
 			}
 		});
 		show.start();
@@ -90,14 +93,15 @@ public class Controller {
 		return scoreBallsCount;
 	}
 
-	public Image iconK,iconM;
-	public long time=0;
+	public String pname, kname;
+	public Image iconK, iconM;
+	public long time = 0;
 	private Window window;
 	private PlayerK playerk;
 	private PlayerM playerm;
 	private static Timer show;
 	private double maxSpeed = 400;
 	private int mapWidth = 2000, mapHeight = 1000;
-	private int scoreBallsCount = (int)((mapHeight*mapWidth)/40000);
+	private int scoreBallsCount = (int) ((mapHeight * mapWidth) / 40000);
 	private App app;
 }

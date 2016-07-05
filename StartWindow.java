@@ -25,6 +25,8 @@ class startWindow extends JFrame {
 	private JLabel labelMapH = new JLabel("Please enter your costum map height: ");
 	private JTextField textScoreballs = new JTextField(20);
 	private JTextField textSpeed = new JTextField(20);
+	private JTextField PName = new JTextField("Player 1",20);
+	private JTextField KName = new JTextField("Player 2",20);
 	private JTextField textMapW = new JTextField(20);
 	private JTextField textMapH = new JTextField(20);
 
@@ -74,20 +76,27 @@ class startWindow extends JFrame {
 
 		constraints.gridx = 0;
 		constraints.gridy = 3;
+		newPanel.add(PName, constraints);
+
+		constraints.gridx = 1;
+		newPanel.add(KName, constraints);
+		
+		constraints.gridx = 0;
+		constraints.gridy = 4;
 		newPanel.add(labelMapH, constraints);
 
 		constraints.gridx = 1;
 		newPanel.add(textMapH, constraints);
 
 		constraints.gridx = 0;
-		constraints.gridy = 4;
+		constraints.gridy = 5;
 		newPanel.add(picKButton, constraints);
 
 		constraints.gridx = 1;
 		newPanel.add(picMButton, constraints);
 
 		constraints.gridx = 0;
-		constraints.gridy = 5;
+		constraints.gridy = 6;
 		constraints.gridwidth = 2;
 		constraints.anchor = GridBagConstraints.CENTER;
 		newPanel.add(playButton, constraints);
@@ -104,6 +113,19 @@ class startWindow extends JFrame {
 					textScoreballs.setText("0");
 				if (textSpeed.getText().equals(""))
 					textSpeed.setText("400");
+				
+				String pname=null;
+				if(PName.getText().equals(""))
+					pname="Player 1";
+				else
+					pname=PName.getText();
+				
+				String kname=null;
+				if(KName.getText().equals(""))
+					kname="Player 2";
+				else
+					kname=KName.getText();
+				
 				int scoreballs = Integer.parseInt(textScoreballs.getText());
 				int mapw = Integer.parseInt(textMapW.getText());
 				int maph = Integer.parseInt(textMapH.getText());
@@ -115,7 +137,7 @@ class startWindow extends JFrame {
 				if (scoreballs == 0)
 					scoreballs = (int) ((maph * mapw) / 40000);
 
-				app.controller = new Controller(app, mapw, maph, speed, scoreballs,iconK,iconM);
+				app.controller = new Controller(app, mapw, maph,pname,kname, speed, scoreballs,iconK,iconM);
 			}
 		});
 
